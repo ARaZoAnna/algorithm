@@ -1,4 +1,4 @@
-#programmers Leve0 No.15 : 수 조작하기 
+#programmers Leve0 No.35 : 수 조작하기 
 #링크 : https://school.programmers.co.kr/learn/courses/30/lessons/181926
 def solution(n, control):
     answer = 0
