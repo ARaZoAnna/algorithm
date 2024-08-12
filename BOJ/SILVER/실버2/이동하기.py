@@ -27,6 +27,30 @@ for j in range(col+1) :
 print(dp(row,col))
 
 
+
+#Bottom-up DP 코드
+#N, M = map(int, input().split())
+# candy = []
+# for _ in range(N) :
+#     candy.append(list(map(int, input().split())))
+# 
+# dp = [[0 for _ in range(M)] for _ in range(N)]
+# dp[0][0] = candy[0][0]
+# 
+# #초기화
+# for i in range(1,M) :
+#     dp[0][i] += candy[0][i] + dp[0][i-1]
+# for j in range(1, N) :
+#     dp[j][0] += candy[j][0] + dp[j-1][0]
+# 
+# for r in range(1,N) :
+#     for c in range(1,M) :
+#         dp[r][c] = candy[r][c]
+#         dp[r][c] += max(dp[r-1][c], dp[r][c-1], dp[r-1][c-1])
+# print(dp[N-1][M-1])
+
+
+
 #시간 초과가 걸린 나의 코드 
 #이유 : 메모이제이션이 전혀 작동하지 않음 계산했던 곳을 또 계산함.. baseCase의 문제..
 # def dp(n,m) :
