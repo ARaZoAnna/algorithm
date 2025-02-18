@@ -25,7 +25,6 @@ class Test {
             arr[i] = tmp;
         }
 
-        //T.solutions(str,t);
         ArrayList<Integer> result = T.solutions(arr);
         for(int idx = 0; idx < result.size(); idx++){
             System.out.print(result.get(idx) + " ");
