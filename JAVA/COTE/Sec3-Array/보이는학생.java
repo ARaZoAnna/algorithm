@@ -28,7 +28,6 @@ class Test {
         }
 
         System.out.println(T.solutions(n, arr));
-
         in.close();
         
     }
