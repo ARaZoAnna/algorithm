@@ -2,15 +2,6 @@
 
 import java.util.*;
 
-class Pair{
-    int row;
-    int col;
-    public Pair(int row, int col){
-        this.row = row;
-        this.col = col;
-    }
-}
-
 class Main {
     int[] dr = {0, 1, 0, -1, -1, 1, 1, -1};
     int[] dc = {1, 0, -1, 0, 1, 1, -1, -1};
