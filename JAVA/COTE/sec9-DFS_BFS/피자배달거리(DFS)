@@ -1,0 +1,64 @@
+//https://cote.inflearn.com/contest/10/problem/08-14
+
+import java.util.*;
+
+class Pair{
+    int x;
+    int y;
+    public Pair(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Main {
+    static int n, m, len, answer = Integer.MAX_VALUE;
+    static int[] combi;
+    static ArrayList<Pair> hs = new ArrayList<>(); // 집의 좌표
+    static ArrayList<Pair> pz = new ArrayList<>(); // 피자집 좌표
+
+    public void DFS(int depth, int idx){
+        if(depth == m){
+            int sum = 0;
+            for(Pair h : hs){
+                int dis = Integer.MAX_VALUE;
+                for(int i : combi){
+                    dis = Math.min( dis ,Math.abs(h.x - pz.get(i).x)+Math.abs(h.y - pz.get(i).y));
+                }
+                sum += dis;
+            }
+            answer = Math.min(answer, sum);
+        }else{
+            for(int i = idx; i < len; i++){
+                combi[depth] = i;
+                DFS(depth+1, i+1);
+            }
+        }
+    }
+
+    
+    public static void main(String[] args){
+        Main T = new Main();
+        Scanner in = new Scanner(System.in);
+
+        n = in.nextInt();
+        m = in.nextInt();
+
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= n; j++){
+                int tmp = in.nextInt();
+
+                if(tmp == 1){
+                    hs.add(new Pair(i,j));
+                }else if(tmp == 2){
+                    pz.add(new Pair(i,j));
+                }
+            }
+        }
+        len = pz.size();
+        combi = new int[m];
+        T.DFS(0,0);
+        System.out.println(answer);
+
+    }
+}
