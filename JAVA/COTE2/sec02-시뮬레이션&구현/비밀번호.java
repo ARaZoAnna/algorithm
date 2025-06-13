@@ -1,19 +1,12 @@
 //https://www.inflearn.com/courses/lecture?courseId=330396&tab=curriculum&type=LECTURE&unitId=149834&subtitleLanguage=ko&audioLanguage=ko
 
 import java.util.*;
-class Pair{
-	int r, c;
-	public Pair(int r, int c){
-		this.r = r;
-		this.c = c;
-	}
-}
 
 class Solution {
 	public int solution(int[] keypad, String password){
 		int[] dr = {0,1,1,1,0,-1,-1,-1};
 		int[] dc = {1,1,0,-1,-1,-1,0,1};
-		Queue<Pair> q = new LinkedList<>();
+	
 		int answer = 0;
 		//비밀번호 숫자로 변환
 		int len = password.length();
@@ -23,50 +16,35 @@ class Solution {
 			pw[idx++] = (int)p - '0';
 		}
 
-		
 		//키패드를 이차원 배열에 입력
 		int[][] arr = new int[3][3];
 		for(int i = 0; i < 9; i++){
 			arr[i/3][i%3] = keypad[i];
-			if(keypad[i] == pw[0]){
-				q.add(new Pair(i/3, i%3));
-			}
 		}
 		
-		for(int i = 1; i<len; i++ ){
-			
-			int cnt = 0;
-			boolean flag = false;
-			while(flag == false){
-				cnt++;
-				Pair tmp = q.poll();
-				int cur_r = tmp.r;
-				int cur_c = tmp.c;
-				if(arr[cur_r][cur_c] == pw[i]){
-					q.add(new Pair(cur_r, cur_c));
-					break;
-				}
-				
+		//거리를 저장하는 배열 
+		int[][] dist = new int[10][10];
+		for(int i = 0; i < 10; i++){
+			Arrays.fill(dist[i], 2);
+		}
+		
+		for(int i = 1; i < 10; i++) dist[i][i] = 0;
+
+		for(int r = 0; r < 3; r++){
+			for(int c = 0; c < 3; c++){				
 				for(int dir = 0; dir < 8; dir++){
-					int nr = cur_r + dr[dir];
-					int nc = cur_c + dc[dir];
-					
+					int nr = r + dr[dir];
+					int nc = c + dc[dir];
 					if(nr >= 0 && nr < 3 && nc >= 0 && nc <3){
-						if(pw[i] == arr[nr][nc]){
-							if(cnt >= 2) cnt = 2;
-							answer += cnt;
-							q.clear();
-							q.add(new Pair(nr, nc));
-							flag = true;
-							break;
-						}
-						q.add(new Pair(nr,nc));
+						dist[arr[r][c]][arr[nr][nc]] = 1;
 					}
 				}
 			}
-		}
-		
+		}		
 	
+		for(int i = 0; i < len-1; i++){
+			answer += dist[pw[i]][pw[i+1]];
+		}
 		return answer;
 	}
 
